@@ -1,0 +1,75 @@
+ISO/IEC 27001:2022 — KEY SECURITY CONTROLS REFERENCE
+
+A.5 ORGANIZATIONAL CONTROLS
+
+A.5.15 Access Control
+Access to information and associated assets shall be restricted in accordance with the
+established access control policy. Users shall only be provided with the access to
+networks and network services that they have been specifically authorised to use.
+
+A.5.16 Identity Management
+The full lifecycle of identities shall be managed. This includes creation, modification,
+and deletion of identities, ensuring that each identity is uniquely assigned and that
+shared accounts are prohibited for privileged access.
+
+A.5.17 Authentication Information
+Allocation of authentication information shall be controlled by a management process,
+including advising personnel on appropriate handling of authentication information.
+Multi-factor authentication shall be used for all remote access and privileged operations.
+
+A.8 TECHNOLOGICAL CONTROLS
+
+A.8.2 Privileged Access Rights
+The allocation and use of privileged access rights shall be restricted and managed.
+Privileged accounts must be reviewed at least quarterly. Any unexplained or unauthorised
+use of privileged rights is a security incident requiring immediate investigation.
+
+A.8.5 Secure Authentication
+Secure authentication technologies and procedures shall be implemented based on information
+access restrictions and the access control policy. Brute-force protection must be active
+on all authentication endpoints.
+
+A.8.7 Protection Against Malware
+Protection against malware shall be implemented and supported by appropriate user awareness.
+Disabling security controls (including firewalls and IDS) without authorisation is
+equivalent to a malware-facilitated attack and must be treated as a HIGH severity incident.
+
+A.8.15 Logging
+Logs that record activities, exceptions, faults and other relevant events shall be produced,
+stored, protected and analysed. Key events to log: logins (success and failure), privileged
+operations, access to sensitive data, configuration changes, and security control changes.
+
+A.8.16 Monitoring Activities
+Networks, systems and applications shall be monitored for anomalous behaviour and
+appropriate actions taken to evaluate potential information security incidents. Monitoring
+must include after-hours activity, unusual data volumes, and geographic anomalies.
+
+A.8.20 Network Security
+Networks and network devices shall be secured, managed and controlled to protect
+information in systems and applications. Changes to network security controls require
+formal authorisation and must be logged with the approving authority.
+
+INCIDENT CLASSIFICATION UNDER ISO 27001
+
+Category 1 — Data Breach Indicators:
+- Bulk data export without authorisation
+- Unusual outbound data transfers
+- Access to sensitive data stores outside business hours
+
+Category 2 — Account Compromise Indicators:
+- Multiple failed authentication attempts (brute force)
+- Successful login immediately following repeated failures
+- Login from a previously unseen IP address
+- Privilege escalation outside approved workflow
+
+Category 3 — Insider Threat Indicators:
+- Audit log deletion or modification
+- Security control disablement (firewall, IDS, AV)
+- Account creation or privilege grant outside normal hours
+- Access to data beyond the user's normal role
+
+Category 4 — System Integrity Indicators:
+- Unauthorised configuration changes
+- New scheduled tasks or services created
+- SSH key additions to privileged accounts
+- Unexpected outbound network connections

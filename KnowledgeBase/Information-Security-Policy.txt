@@ -1,0 +1,67 @@
+ENTERPRISE INFORMATION SECURITY POLICY
+Version 3.2 | Effective Date: January 2024
+
+1. ACCESS CONTROL POLICY
+
+1.1 Authentication Requirements
+All users must authenticate using multi-factor authentication (MFA) before accessing
+any enterprise systems. Single-factor authentication is prohibited for privileged accounts.
+
+Account lockout policy: Accounts must be automatically locked after 3 consecutive failed
+login attempts within a 10-minute window. Locked accounts require administrator review
+before re-activation.
+
+1.2 Privileged Access Management
+Privileged accounts (admin, root, service accounts) must follow the principle of least
+privilege. Privilege escalation must be logged, reviewed, and approved through the change
+management process. Service accounts must not be used for interactive logins.
+
+1.3 Account Lifecycle
+New accounts must be created only through the approved provisioning workflow. Account
+creation by privileged users outside the provisioning system is a policy violation and
+must be investigated as a potential security incident. All account changes must be logged.
+
+2. NETWORK SECURITY POLICY
+
+2.1 Firewall Management
+Firewall configurations must not be modified without an approved change request. Disabling
+firewall rules, especially during off-hours, must trigger an automatic security alert.
+All-traffic-allow rules (0.0.0.0/0) are prohibited in production environments.
+
+2.2 Data Exfiltration Prevention
+Bulk data exports exceeding 10,000 rows must be pre-approved by a data steward.
+Transfers to external IP addresses must be logged and reviewed within 24 hours.
+VPN tunnels to non-approved external endpoints are prohibited.
+
+3. INCIDENT RESPONSE POLICY
+
+3.1 Severity Classification
+- CRITICAL: Active data breach, ransomware, complete system compromise
+- HIGH: Privilege escalation, credential theft, firewall disabled in production
+- MEDIUM: Multiple failed logins, unauthorised access attempts, policy violations
+- LOW: Single failed login, minor configuration drift
+
+3.2 Response Times
+- CRITICAL: Immediate response, notify CISO within 15 minutes
+- HIGH: Response within 1 hour, notify security team
+- MEDIUM: Response within 4 hours
+- LOW: Reviewed in next business day security review
+
+3.3 Evidence Preservation
+Audit logs must be preserved and must not be altered or deleted during an investigation.
+Deletion of audit logs is itself a HIGH severity incident.
+
+4. AUDIT AND LOGGING POLICY
+
+4.1 Log Retention
+All system logs must be retained for a minimum of 12 months. Security-relevant logs
+(authentication, privilege changes, firewall events) must be retained for 24 months.
+
+4.2 Log Integrity
+Logs must be written to a write-once, tamper-evident log store. Log clearing or
+modification by any account other than the designated log management service account
+is a critical security violation.
+
+4.3 Monitoring
+Continuous monitoring must cover: failed authentication attempts, privilege escalation,
+firewall changes, bulk data access, off-hours administrative activity, and SSH key changes.
