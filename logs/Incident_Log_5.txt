@@ -1,0 +1,47 @@
+2024-06-21 14:00:00 INFO  AUTH     Login success user=dev_ops_01 IP=10.0.2.15 role=developer
+2024-06-21 14:01:00 INFO  AUTH     Login success user=dev_ops_02 IP=10.0.2.16 role=developer
+2024-06-21 14:02:00 INFO  CI       Pipeline triggered repo=payment-service branch=feature/update by=dev_ops_01
+2024-06-21 14:03:00 INFO  CI       Build started job_id=CI-4821 repo=payment-service
+2024-06-21 14:05:00 INFO  CI       Build SUCCESS job_id=CI-4821 tests_passed=142
+2024-06-21 14:06:00 WARN  SAST     SAST scan warning: hardcoded secret detected file=config.py line=47
+2024-06-21 14:06:01 WARN  SAST     Hardcoded API key found pattern=sk-[a-zA-Z0-9]{48} file=config.py
+2024-06-21 14:06:30 INFO  CI       Pipeline approved by=dev_ops_02 despite SAST warning job_id=CI-4821
+2024-06-21 14:07:00 CRITICAL CI    SAST warning overridden: hardcoded secret deployed to staging by=dev_ops_02
+2024-06-21 14:08:00 INFO  DEPLOY   Deployment to staging env=staging version=2.4.1 by=dev_ops_01
+2024-06-21 14:10:00 WARN  CONFIG   Misconfiguration detected env=staging debug_mode=TRUE expose_stacktraces=TRUE
+2024-06-21 14:10:30 WARN  CONFIG   Staging environment has CORS allow_origin=* (all origins permitted)
+2024-06-21 14:11:00 WARN  CONFIG   Staging database uses default credentials user=admin pass=admin123
+2024-06-21 14:11:30 CRITICAL CONFIG Default database credentials in staging DB_USER=admin DB_PASS=admin123
+2024-06-21 14:12:00 INFO  CI       Pipeline promoted to production approval_by=dev_ops_01 job_id=CI-4822
+2024-06-21 14:12:01 WARN  CI       Production deployment missing security review sign-off job_id=CI-4822
+2024-06-21 14:13:00 INFO  DEPLOY   Deployment to production env=production version=2.4.1 by=dev_ops_01
+2024-06-21 14:13:30 CRITICAL DEPLOY Hardcoded secret deployed to PRODUCTION env=production file=config.py
+2024-06-21 14:14:00 INFO  NET      Production payment-service started on port=443
+2024-06-21 14:15:00 WARN  WAF      Unusual traffic spike to /api/payment endpoint requests=1200/min baseline=80/min
+2024-06-21 14:15:30 WARN  WAF      Scanning pattern detected src=198.51.100.44 paths=/api/docs,/api/v1,/.env,/config
+2024-06-21 14:16:00 WARN  WAF      GET /.env returned 200 OK src=198.51.100.44 size=2048
+2024-06-21 14:16:01 CRITICAL WAF   .env file publicly accessible on production server
+2024-06-21 14:16:30 WARN  NET      API key extracted from .env accessed by external IP=198.51.100.44
+2024-06-21 14:17:00 INFO  API      Authenticated API calls using exposed key src=198.51.100.44
+2024-06-21 14:17:30 WARN  API      Attacker using exposed API key: listing all transactions src=198.51.100.44
+2024-06-21 14:18:00 CRITICAL API   Bulk transaction data accessed via exposed API key records=89000
+2024-06-21 14:18:30 INFO  API      Payment endpoint called with exposed key method=POST action=refund amount=9999.99
+2024-06-21 14:18:31 CRITICAL API   Fraudulent refund initiated via exposed API key amount=9999.99 by=198.51.100.44
+2024-06-21 14:19:00 INFO  API      Multiple refund requests src=198.51.100.44 count=15 total_amount=124999.85
+2024-06-21 14:19:30 FRAUD  ALERT   Fraud detection triggered: bulk_refunds src_IP=198.51.100.44
+2024-06-21 14:20:00 INFO  WAF      WAF rule triggered: rate_limit src=198.51.100.44 blocked=true
+2024-06-21 14:20:30 INFO  API      API key revoked key=sk-exposed reason=compromise by=automated_response
+2024-06-21 14:21:00 CRITICAL SEC   API key was committed to git repo 7 days ago commit=a3f91bc
+2024-06-21 14:21:30 WARN  GIT      Secret present in git history since 2024-06-14 repo=payment-service
+2024-06-21 14:22:00 INFO  SIEM     Incident created ticket=INC-2024-0621-001 type=secret_exposure severity=CRITICAL
+2024-06-21 14:23:00 INFO  AUTH     Login success user=security_lead IP=10.0.0.8 role=security_lead
+2024-06-21 14:24:00 INFO  AUDIT    Security lead investigating exposed secret ticket=INC-2024-0621-001
+2024-06-21 14:25:00 INFO  SYS      All refund transactions flagged for reversal count=15
+2024-06-21 14:26:00 INFO  DEPLOY   Emergency rollback initiated env=production by=security_lead
+2024-06-21 14:27:00 INFO  GIT      Secret removed from codebase commit=f8d02aa by=dev_ops_01
+2024-06-21 14:28:00 INFO  GIT      Git history rewritten to remove secret commit=BFG_cleanup
+2024-06-21 14:29:00 INFO  CONFIG   .env file removed from public web root by=dev_ops_01
+2024-06-21 14:30:00 INFO  API      New API key issued rotation=complete by=security_lead
+2024-06-21 14:35:00 INFO  AUDIT    Post-incident review scheduled date=2024-06-24 team=dev+security
+2024-06-21 14:40:00 CRITICAL AUDIT Financial loss estimated amount=124999.85 status=pending_reversal
+2024-06-21 14:45:00 INFO  AUDIT    Regulatory notification required type=PCI-DSS breach=payment_data

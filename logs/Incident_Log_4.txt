@@ -1,0 +1,48 @@
+2024-06-20 09:00:00 INFO  AUTH     Login success user=hr_manager IP=192.168.3.10 role=hr_admin
+2024-06-20 09:01:00 INFO  AUTH     Login success user=finance_lead IP=192.168.3.22 role=finance
+2024-06-20 09:02:00 INFO  AUTH     Login success user=it_support IP=10.0.1.5 role=support
+2024-06-20 09:05:00 INFO  AUTH     Login success user=intern_temp01 IP=192.168.3.55 role=readonly
+2024-06-20 09:06:00 WARN  AUDIT    intern_temp01 role=readonly attempting restricted resource access
+2024-06-20 09:06:30 INFO  SYS      Access denied path=/hr/salaries user=intern_temp01 required_role=hr_admin
+2024-06-20 09:07:00 INFO  SYS      Access denied path=/hr/performance user=intern_temp01 required_role=hr_admin
+2024-06-20 09:07:30 INFO  SYS      Access denied path=/finance/payroll user=intern_temp01 required_role=finance
+2024-06-20 09:08:00 WARN  SYS      Repeated access denied events user=intern_temp01 count=3 in=2min
+2024-06-20 09:08:30 INFO  SYS      Access denied path=/admin/users user=intern_temp01 required_role=admin
+2024-06-20 09:09:00 INFO  SYS      Access denied path=/system/config user=intern_temp01 required_role=admin
+2024-06-20 09:09:30 WARN  SYS      Possible privilege enumeration by=intern_temp01 denied_count=5
+2024-06-20 09:10:00 INFO  SYS      Access granted path=/public/docs user=intern_temp01
+2024-06-20 09:10:30 INFO  SYS      File downloaded path=/public/docs/org_chart.pdf user=intern_temp01 size=2MB
+2024-06-20 09:11:00 INFO  SYS      File downloaded path=/public/docs/employee_directory.xlsx user=intern_temp01
+2024-06-20 09:11:30 WARN  SYS      Bulk download from /public by=intern_temp01 files=12 in=90s
+2024-06-20 09:12:00 INFO  AUTH     Login success user=intern_temp01 IP=192.168.3.55 app=internal_wiki
+2024-06-20 09:12:30 INFO  SYS      Wiki search query=vpn+credentials user=intern_temp01
+2024-06-20 09:13:00 INFO  SYS      Wiki search query=admin+default+password user=intern_temp01
+2024-06-20 09:13:30 WARN  SYS      Sensitive search terms detected user=intern_temp01 terms=vpn_credentials,passwords
+2024-06-20 09:14:00 INFO  SYS      Wiki page accessed title=IT_Infrastructure_Overview user=intern_temp01
+2024-06-20 09:14:30 INFO  SYS      Wiki page accessed title=Network_Architecture user=intern_temp01
+2024-06-20 09:15:00 WARN  AUDIT    Insider threat indicators: access_probing+bulk_download+sensitive_searches user=intern_temp01
+2024-06-20 09:15:30 INFO  EMAIL    Email sent from=intern_temp01 to=external_gmail size=5MB attachment=true
+2024-06-20 09:15:31 WARN  DLP      DLP rule triggered: large_email_external src=intern_temp01 dst=gmail.com
+2024-06-20 09:16:00 CRITICAL DLP   Email with org_chart.pdf + employee_directory.xlsx sent to external address
+2024-06-20 09:16:30 INFO  DLP      Email quarantined pending review from=intern_temp01 ticket=DLP-2024-0620-001
+2024-06-20 09:17:00 INFO  AUTH     Login success user=intern_temp01 IP=192.168.3.55 app=git_internal
+2024-06-20 09:17:30 WARN  GIT      Repo cloned repo=infrastructure-as-code user=intern_temp01 not_in_team=true
+2024-06-20 09:18:00 WARN  GIT      Repo cloned repo=security-configs user=intern_temp01 not_in_team=true
+2024-06-20 09:18:30 CRITICAL GIT   intern_temp01 cloned sensitive repos: infrastructure-as-code, security-configs
+2024-06-20 09:19:00 WARN  GIT      Terraform files accessed in cloned repo user=intern_temp01 files=47
+2024-06-20 09:19:30 INFO  SYS      USB device connected host=ws-intern-01 device=SanDisk_USB_32GB user=intern_temp01
+2024-06-20 09:19:31 WARN  DLP      USB device detected on=ws-intern-01 user=intern_temp01 policy=monitor_interns
+2024-06-20 09:20:00 INFO  SYS      File copy to USB src=/home/intern_temp01/Downloads dst=USB user=intern_temp01
+2024-06-20 09:20:30 CRITICAL DLP   Data copied to USB: org_chart.pdf employee_directory.xlsx by=intern_temp01
+2024-06-20 09:21:00 INFO  AUTH     Logout user=intern_temp01 session_duration=76m
+2024-06-20 09:22:00 WARN  HR       IT flagged intern_temp01 to HR manager for policy review
+2024-06-20 09:25:00 INFO  AUTH     Login success user=security_analyst IP=10.0.0.12 role=security
+2024-06-20 09:26:00 INFO  AUDIT    Security analyst reviewing intern_temp01 activity user=security_analyst
+2024-06-20 09:28:00 CRITICAL AUDIT Insider threat confirmed user=intern_temp01 actions=bulk_download+USB_exfil+email_exfil
+2024-06-20 09:30:00 INFO  USRMGMT  Account suspended user=intern_temp01 by=security_analyst reason=policy_violation
+2024-06-20 09:30:30 INFO  USRMGMT  All active sessions terminated user=intern_temp01
+2024-06-20 09:31:00 INFO  SYS      Access revoked for intern_temp01 on all systems
+2024-06-20 09:35:00 INFO  AUDIT    HR notified about intern_temp01 incident by=security_analyst
+2024-06-20 09:40:00 INFO  AUDIT    Legal team notified ticket=INC-2024-0620-001 type=insider_threat
+2024-06-20 09:45:00 INFO  SYS      Digital forensics requested for ws-intern-01 ticket=INC-2024-0620-001
+2024-06-20 10:00:00 CRITICAL AUDIT INCIDENT REPORT filed type=insider_threat user=intern_temp01 severity=HIGH

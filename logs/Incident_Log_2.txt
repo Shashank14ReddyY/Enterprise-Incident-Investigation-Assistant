@@ -1,0 +1,49 @@
+2024-06-18 01:55:02 INFO  AUTH     Login success user=devops_temp IP=172.16.0.5 role=devops
+2024-06-18 01:55:30 INFO  SYS      Session started user=devops_temp terminal=pts/2 IP=172.16.0.5
+2024-06-18 01:56:10 WARN  AUTH     Off-hours login detected user=devops_temp time=01:56 normal_hours=08:00-18:00
+2024-06-18 01:57:00 INFO  NET      Firewall rule query by=devops_temp ruleset=production
+2024-06-18 02:00:01 CRITICAL FW    Firewall DISABLED by=devops_temp host=prod-server-01 change_id=NONE
+2024-06-18 02:00:02 ALERT FW       Firewall disable has NO associated change request ticket
+2024-06-18 02:01:15 INFO  FW       Firewall rule added: ALLOW ALL src=0.0.0.0/0 dst=0.0.0.0/0 by=devops_temp
+2024-06-18 02:01:16 CRITICAL FW    Allow-all rule created in production environment by=devops_temp
+2024-06-18 02:02:00 INFO  NET      VPN tunnel established src=prod-server-01 dst=45.33.32.156 port=1194 by=devops_temp
+2024-06-18 02:02:30 WARN  NET      VPN endpoint 45.33.32.156 is not in approved VPN server list
+2024-06-18 02:03:00 INFO  DB       Database connection opened db=prod_customers user=devops_temp
+2024-06-18 02:04:15 INFO  DB       Query executed table=customers rows_scanned=250000 user=devops_temp
+2024-06-18 02:05:00 INFO  DB       Database backup listed path=/var/backups/db/ user=devops_temp
+2024-06-18 02:06:30 INFO  DB       Database export initiated table=customers rows=250000 format=csv user=devops_temp
+2024-06-18 02:07:00 CRITICAL DB    Bulk export >10000 rows without data steward approval rows=250000 user=devops_temp
+2024-06-18 02:08:00 INFO  SYS      File created path=/tmp/customers_export.csv size=45MB user=devops_temp
+2024-06-18 02:09:00 WARN  DB       Backup file deleted path=/var/backups/db/prod_backup_2024_06_17.sql by=devops_temp
+2024-06-18 02:10:01 CRITICAL DB    Production database backup DELETED path=prod_backup_2024_06_17 by=devops_temp
+2024-06-18 02:11:00 CRITICAL DB    Production database backup DELETED path=prod_backup_2024_06_16 by=devops_temp
+2024-06-18 02:11:30 CRITICAL DB    Production database backup DELETED path=prod_backup_2024_06_15 by=devops_temp
+2024-06-18 02:12:00 INFO  NET      File transfer started src=prod-server-01 dst=45.33.32.156 file=customers_export.csv
+2024-06-18 02:13:00 WARN  NET      Large outbound transfer detected size=45MB dst=45.33.32.156 unapproved_endpoint=true
+2024-06-18 02:14:00 INFO  NET      File transfer completed bytes=47185920 dst=45.33.32.156 duration=120s
+2024-06-18 02:15:01 WARN  AUTH     Login Failed user=root IP=45.33.32.156 attempt=1/3
+2024-06-18 02:15:45 WARN  AUTH     Login Failed user=root IP=45.33.32.156 attempt=2/3
+2024-06-18 02:16:30 WARN  AUTH     Login Failed user=root IP=45.33.32.156 attempt=3/3
+2024-06-18 02:17:00 WARN  AUTH     Login Failed user=root IP=45.33.32.156 attempt=4 status=account_locked
+2024-06-18 02:17:30 WARN  AUTH     Login Failed user=root IP=45.33.32.156 attempt=5 status=account_locked
+2024-06-18 02:18:00 WARN  AUTH     Login Failed user=root IP=45.33.32.156 attempt=6 status=account_locked
+2024-06-18 02:18:01 CRITICAL AUTH  EXTERNAL BRUTE FORCE on root from IP=45.33.32.156 total_attempts=6
+2024-06-18 02:19:00 INFO  SYS      Temp file deleted path=/tmp/customers_export.csv user=devops_temp
+2024-06-18 02:20:00 INFO  SYS      Shell history cleared by=devops_temp host=prod-server-01
+2024-06-18 02:21:00 WARN  IDS      IDS rule disabled rule_id=445 description=data_exfil_detect by=devops_temp
+2024-06-18 02:21:01 CRITICAL IDS   IDS alert suppression by=devops_temp rule=data_exfil_detect
+2024-06-18 02:22:00 WARN  IDS      IDS rule disabled rule_id=112 description=outbound_volume_alert by=devops_temp
+2024-06-18 02:23:00 INFO  DB       Database connection closed db=prod_customers user=devops_temp duration=20m
+2024-06-18 02:24:00 INFO  FW       Firewall re-enabled host=prod-server-01 by=devops_temp
+2024-06-18 02:24:30 INFO  NET      VPN tunnel closed src=prod-server-01 dst=45.33.32.156
+2024-06-18 02:25:00 CRITICAL AUDIT Audit log cleared host=prod-server-01 by=devops_temp entries_deleted=312
+2024-06-18 02:25:30 INFO  AUTH     Logout user=devops_temp session_duration=30m
+2024-06-18 06:00:00 INFO  SYS      Scheduled backup started host=prod-server-01
+2024-06-18 06:00:05 ERROR SYS      Scheduled backup FAILED reason=source_backups_missing path=/var/backups/db/
+2024-06-18 08:02:00 INFO  AUTH     Login success user=sysadmin IP=10.0.0.3 role=admin
+2024-06-18 08:03:00 WARN  SYS      Sysadmin noticed missing backup files path=/var/backups/db/
+2024-06-18 08:05:00 CRITICAL SYS   Incident raised ticket=INC-2024-0618-001 reporter=sysadmin type=data_loss
+2024-06-18 08:10:00 INFO  AUDIT    Audit trail review started by=sysadmin for=devops_temp
+2024-06-18 08:11:00 WARN  AUDIT    Audit log gaps detected period=02:00-02:30 host=prod-server-01
+2024-06-18 08:15:00 INFO  AUDIT    VPN log review initiated for external IP=45.33.32.156
+2024-06-18 08:20:00 CRITICAL AUDIT CISO notified ticket=INC-2024-0618-001 severity=CRITICAL

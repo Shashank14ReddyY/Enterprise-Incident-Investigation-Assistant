@@ -1,0 +1,50 @@
+2024-06-17 10:28:01 INFO  AUTH     Login success user=john.smith IP=192.168.1.45 role=analyst
+2024-06-17 10:29:15 INFO  AUTH     Login success user=mary.jones IP=192.168.1.67 role=developer
+2024-06-17 10:30:02 WARN  AUTH     Login Failed user=user1 IP=192.168.1.105 attempt=1/3
+2024-06-17 10:30:45 INFO  AUTH     Login success user=bob.chen IP=10.0.1.22 role=developer
+2024-06-17 10:32:11 WARN  AUTH     Login Failed user=user1 IP=192.168.1.105 attempt=2/3
+2024-06-17 10:33:05 INFO  SYS      File accessed path=/var/app/config.yaml user=john.smith
+2024-06-17 10:34:08 WARN  AUTH     Login Failed user=user1 IP=192.168.1.105 attempt=3/3
+2024-06-17 10:34:09 ERROR AUTH     Account LOCKED user=user1 reason=max_failed_attempts IP=192.168.1.105
+2024-06-17 10:35:00 WARN  AUTH     Login Failed user=user1 IP=192.168.1.105 attempt=1/3 status=account_locked
+2024-06-17 10:35:30 WARN  AUTH     Login Failed user=user1 IP=192.168.1.105 attempt=2/3 status=account_locked
+2024-06-17 10:36:01 WARN  AUTH     Login Failed user=user1 IP=192.168.1.105 attempt=3/3 status=account_locked
+2024-06-17 10:36:02 CRITICAL AUTH  BRUTE FORCE DETECTED user=user1 IP=192.168.1.105 total_attempts=6
+2024-06-17 10:36:44 WARN  AUTH     Admin login from unusual IP user=admin_user IP=192.168.1.105 normal_IP=10.0.0.5
+2024-06-17 10:36:45 INFO  AUTH     Login success user=admin_user IP=192.168.1.105 role=admin
+2024-06-17 10:37:02 INFO  USRMGMT  New account created by=admin_user new_user=service_account_x role=standard
+2024-06-17 10:37:58 CRITICAL PRIV  Privilege escalation user=service_account_x granted=ADMIN by=admin_user
+2024-06-17 10:38:10 WARN  PRIV     Admin role assigned outside provisioning workflow user=service_account_x
+2024-06-17 10:38:55 INFO  SYS      File accessed path=/etc/passwd user=service_account_x
+2024-06-17 10:39:12 INFO  SYS      File accessed path=/etc/shadow user=service_account_x
+2024-06-17 10:39:30 INFO  SYS      File accessed path=/root/.ssh/authorized_keys user=service_account_x
+2024-06-17 10:40:01 CRITICAL SYS   SSH key added to root account by=service_account_x key_fingerprint=SHA256:xK9mPq
+2024-06-17 10:40:45 INFO  NET      Outbound SSH connection src=server01 dst=45.33.32.156:22 user=service_account_x
+2024-06-17 10:41:00 INFO  AUTH     Login success user=service_account_x IP=45.33.32.156 via=ssh_key
+2024-06-17 10:41:30 INFO  SYS      Directory listing path=/var/backups user=service_account_x
+2024-06-17 10:42:05 WARN  SYS      Sensitive file read path=/var/backups/db_credentials.json user=service_account_x
+2024-06-17 10:42:50 INFO  NET      Data transfer src=server01 dst=45.33.32.156 bytes=204800 user=service_account_x
+2024-06-17 10:43:15 WARN  AUTH     Login Failed user=user2 IP=10.0.0.22 attempt=1/3
+2024-06-17 10:43:45 WARN  AUTH     Login Failed user=user3 IP=10.0.0.22 attempt=1/3
+2024-06-17 10:44:02 WARN  AUTH     Login Failed user=user4 IP=10.0.0.22 attempt=1/3
+2024-06-17 10:44:30 WARN  AUTH     Login Failed user=user2 IP=10.0.0.22 attempt=2/3
+2024-06-17 10:45:00 INFO  AUTH     Login success user=alice.morgan IP=192.168.2.10 role=analyst
+2024-06-17 10:45:15 WARN  AUTH     Login Failed user=user3 IP=10.0.0.22 attempt=2/3
+2024-06-17 10:45:40 WARN  AUTH     Login Failed user=user4 IP=10.0.0.22 attempt=2/3
+2024-06-17 10:46:02 WARN  AUTH     Login Failed user=user2 IP=10.0.0.22 attempt=3/3
+2024-06-17 10:46:03 ERROR AUTH     Account LOCKED user=user2 reason=max_failed_attempts IP=10.0.0.22
+2024-06-17 10:46:20 WARN  AUTH     Login Failed user=user3 IP=10.0.0.22 attempt=3/3
+2024-06-17 10:46:21 ERROR AUTH     Account LOCKED user=user3 reason=max_failed_attempts IP=10.0.0.22
+2024-06-17 10:46:45 WARN  AUTH     Login Failed user=user4 IP=10.0.0.22 attempt=3/3
+2024-06-17 10:46:46 ERROR AUTH     Account LOCKED user=user4 reason=max_failed_attempts IP=10.0.0.22
+2024-06-17 10:47:00 CRITICAL AUTH  DISTRIBUTED BRUTE FORCE targets=user2,user3,user4 src_IP=10.0.0.22
+2024-06-17 10:47:30 INFO  SYS      Cron job created name=sys_update schedule=*/5 user=service_account_x
+2024-06-17 10:48:00 WARN  SYS      Cron job points to external script URL=http://45.33.32.156/update.sh
+2024-06-17 10:48:45 INFO  NET      DNS query domain=45.33.32.156.nip.io type=A src=server01
+2024-06-17 10:49:10 INFO  SYS      Process started cmd=/tmp/.sys_update pid=4521 user=service_account_x
+2024-06-17 10:49:55 WARN  SYS      Hidden file created path=/tmp/.sys_update permissions=755 user=service_account_x
+2024-06-17 10:50:30 INFO  AUTH     Logout user=john.smith session_duration=22m
+2024-06-17 10:51:00 WARN  AUDIT    admin_user accessed audit logs path=/var/log/auth.log
+2024-06-17 10:51:45 CRITICAL AUDIT Audit log entries deleted count=47 by=admin_user
+2024-06-17 10:52:10 INFO  AUTH     Logout user=admin_user session_duration=15m
+2024-06-17 10:52:30 INFO  NET      Outbound connection closed src=server01 dst=45.33.32.156 bytes_total=512000

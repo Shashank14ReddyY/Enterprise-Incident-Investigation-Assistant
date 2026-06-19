@@ -1,0 +1,51 @@
+2024-06-19 03:00:00 INFO  SYS      Nightly maintenance window started host=app-server-02
+2024-06-19 03:01:00 INFO  AUTH     Login success user=maintenance_script IP=10.0.0.50 role=service
+2024-06-19 03:02:10 INFO  SYS      Patch check started packages=247 host=app-server-02
+2024-06-19 03:05:00 INFO  SYS      Patch applied package=openssl version=3.0.12 host=app-server-02
+2024-06-19 03:05:30 INFO  SYS      Patch applied package=libssl version=3.0.12 host=app-server-02
+2024-06-19 03:07:00 WARN  AUTH     Unexpected login during maintenance user=unknown_user_88 IP=203.0.113.55
+2024-06-19 03:07:01 WARN  AUTH     unknown_user_88 is not a recognised service account IP=203.0.113.55
+2024-06-19 03:07:30 INFO  AUTH     Login success user=unknown_user_88 IP=203.0.113.55 role=none
+2024-06-19 03:08:00 WARN  SYS      New user account unknown_user_88 has no provisioning record
+2024-06-19 03:08:30 INFO  SYS      Directory enumeration by=unknown_user_88 path=/etc /var /home
+2024-06-19 03:09:00 INFO  SYS      File read path=/etc/os-release user=unknown_user_88
+2024-06-19 03:09:15 INFO  SYS      File read path=/proc/version user=unknown_user_88
+2024-06-19 03:09:30 INFO  NET      Outbound connection src=app-server-02 dst=203.0.113.55:4444 user=unknown_user_88
+2024-06-19 03:09:31 CRITICAL NET   Reverse shell connection detected dst_port=4444 src=app-server-02 dst=203.0.113.55
+2024-06-19 03:10:00 INFO  SYS      Package installed name=netcat version=1.10 user=unknown_user_88
+2024-06-19 03:10:30 INFO  SYS      Package installed name=nmap version=7.94 user=unknown_user_88
+2024-06-19 03:11:00 WARN  NET      Port scan initiated src=app-server-02 targets=10.0.0.0/24 by=unknown_user_88
+2024-06-19 03:11:01 CRITICAL NET   Internal network scan from compromised host src=app-server-02
+2024-06-19 03:12:00 INFO  NET      Port scan results open_hosts=14 open_ports=ssh:10,http:8,rdp:3,db:3
+2024-06-19 03:13:00 INFO  AUTH     SSH attempt src=app-server-02 dst=db-server-01:22 user=root
+2024-06-19 03:13:30 WARN  AUTH     Login Failed src=app-server-02 dst=db-server-01 user=root attempt=1
+2024-06-19 03:14:00 WARN  AUTH     Login Failed src=app-server-02 dst=db-server-01 user=root attempt=2
+2024-06-19 03:14:30 WARN  AUTH     Login Failed src=app-server-02 dst=db-server-01 user=root attempt=3
+2024-06-19 03:15:00 INFO  AUTH     SSH attempt src=app-server-02 dst=api-server-01:22 user=deploy
+2024-06-19 03:15:30 INFO  AUTH     Login success src=app-server-02 dst=api-server-01 user=deploy via=ssh_key_reuse
+2024-06-19 03:16:00 CRITICAL AUTH  Lateral movement detected src=app-server-02 dst=api-server-01 user=deploy
+2024-06-19 03:16:30 INFO  SYS      File read path=/var/app/.env user=deploy host=api-server-01
+2024-06-19 03:17:00 WARN  SYS      .env file contains DB credentials accessed by=deploy host=api-server-01
+2024-06-19 03:17:30 INFO  DB       Database connection from unexpected host src=api-server-01 db=prod_app user=app_db
+2024-06-19 03:18:00 INFO  DB       Schema enumeration db=prod_app user=app_db tables_listed=34
+2024-06-19 03:18:30 INFO  DB       Table accessed table=users rows_read=150000 user=app_db
+2024-06-19 03:19:00 INFO  DB       Table accessed table=payment_methods rows_read=89000 user=app_db
+2024-06-19 03:19:30 CRITICAL DB    PII data access users+payment_methods without authorisation user=app_db
+2024-06-19 03:20:00 INFO  DB       Data export query executed rows=239000 tables=users,payment_methods user=app_db
+2024-06-19 03:21:00 INFO  NET      Large outbound transfer src=api-server-01 dst=203.0.113.55 size=112MB
+2024-06-19 03:22:00 INFO  SYS      Ransomware dropper detected path=/tmp/.encryptor hash=e3b0c44298fc1c14
+2024-06-19 03:22:01 CRITICAL SYS   Ransomware binary execution blocked by AV host=api-server-01
+2024-06-19 03:22:30 WARN  SYS      AV quarantined file path=/tmp/.encryptor host=api-server-01
+2024-06-19 03:23:00 INFO  SYS      Persistence mechanism: crontab modified user=deploy host=api-server-01
+2024-06-19 03:23:30 CRITICAL SYS   Backdoor cron entry added @reboot /tmp/.backdoor user=deploy
+2024-06-19 03:24:00 INFO  NET      C2 beacon detected interval=60s dst=203.0.113.55:8080 src=api-server-01
+2024-06-19 03:25:00 INFO  SYS      AV alert escalated to SIEM host=api-server-01 severity=CRITICAL
+2024-06-19 03:26:00 INFO  SIEM     Correlation rule triggered: lateral_movement+data_access+c2_beacon
+2024-06-19 03:26:30 INFO  SIEM     Automated response: isolating api-server-01 from network
+2024-06-19 03:27:00 INFO  NET      Network isolation applied host=api-server-01 VLAN=quarantine
+2024-06-19 03:27:30 INFO  SIEM     Incident auto-created ticket=INC-2024-0619-001 severity=CRITICAL
+2024-06-19 03:28:00 INFO  SIEM     On-call engineer paged engineer=david.wu ticket=INC-2024-0619-001
+2024-06-19 03:35:00 INFO  AUTH     Login success user=david.wu IP=192.168.5.10 role=security_engineer
+2024-06-19 03:36:00 INFO  AUDIT    Incident response started by=david.wu ticket=INC-2024-0619-001
+2024-06-19 03:40:00 INFO  SYS      Forensic image initiated host=api-server-01 by=david.wu
+2024-06-19 03:45:00 INFO  AUDIT    CISO notified ticket=INC-2024-0619-001 severity=CRITICAL type=APT_suspected
